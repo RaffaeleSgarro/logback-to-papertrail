@@ -1,0 +1,3 @@
+app.papertrail.host=logsN.papertrailapp.com
+app.papertrail.port=12345
+app.papertrail.facility=USER

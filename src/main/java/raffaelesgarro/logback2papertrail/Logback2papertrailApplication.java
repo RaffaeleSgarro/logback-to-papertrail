@@ -18,18 +18,56 @@ public class Logback2papertrailApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        System.out.println("Type crash and then press ENTER to throw an exception");
+    public void run(String... args) {
+        help();
         Scanner console = new Scanner(System.in);
         while (true) {
-            try {
-                String command = console.nextLine();
-                if (command.equals("crash")) {
-                    throw new RuntimeException("Crash :-)");
-                }
-            } catch (Exception e) {
-                log.error("Alright! This is your error", e);
+            String command = console.nextLine();
+            switch (command) {
+                case "1":
+                    asciiArt();
+                    break;
+                case "2":
+                    stackTrace();
+                    break;
+                default:
+                    help();
+                    break;
             }
         }
     }
+
+    private void help() {
+        System.out.println("Choose the option number and then press ENTER");
+        System.out.println("1 - ASCII art");
+        System.out.println("2 - Exception with stack trace");
+    }
+
+    private void stackTrace() {
+        try {
+            throw new RuntimeException("Crash :-)");
+        } catch (Exception e) {
+            log.error("Alright! This is your error", e);
+        }
+    }
+
+    private void asciiArt() {
+        log.info("Here you a ASCII art\n{}", ASCII_ART);
+    }
+
+    private static final String ASCII_ART = "           _                         _\n" +
+            "       _==/          i     i          \\==\n" +
+            "     /XX/            |\\___/|            \\XX\\\n" +
+            "   /XXXX\\            |XXXXX|            /XXXX\\\n" +
+            "  |XXXXXX\\_         _XXXXXXX_         _/XXXXXX|\n" +
+            " XXXXXXXXXXXxxxxxxxXXXXXXXXXXXxxxxxxxXXXXXXXXXXX\n" +
+            "|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|\n" +
+            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
+            "|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|\n" +
+            " XXXXXX/^^^^\"\\XXXXXXXXXXXXXXXXXXXXX/^^^^^\\XXXXXX\n" +
+            "  |XXX|       \\XXX/^^\\XXXXX/^^\\XXX/       |XXX|\n" +
+            "    \\XX\\       \\X/    \\XXX/    \\X/       /XX/\n" +
+            "       \"\\       \"      \\X/      \"       /\"\n" +
+            "Zach Bolinger           !";
+
 }
