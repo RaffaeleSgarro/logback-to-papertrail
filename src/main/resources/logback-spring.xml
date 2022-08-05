@@ -11,6 +11,8 @@
         <syslogHost>${HOST}</syslogHost>
         <facility>${FACILITY}</facility>
         <port>${PORT}</port>
+        <suffixPattern>%replace([%thread] : %msg %throwable){'[\r\n]+', '&#x2028;'}</suffixPattern>
+        <throwableExcluded>true</throwableExcluded>
     </appender>
 
     <root level="INFO">
