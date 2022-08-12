@@ -21,7 +21,7 @@ public class Logback2papertrailApplication implements CommandLineRunner {
     public void run(String... args) {
         help();
         Scanner console = new Scanner(System.in);
-        while (true) {
+        while (console.hasNextLine()) {
             String command = console.nextLine();
             switch (command) {
                 case "1":
